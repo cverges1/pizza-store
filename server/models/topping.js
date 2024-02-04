@@ -5,6 +5,7 @@ const toppingSchema = new Schema(
     toppingName: {
       type: String,
       required: true,
+      unique: true
     }
   },
 );
