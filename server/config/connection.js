@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 //invoke our connection
 mongoose.connect(
-    process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cv-art-store',{
+    process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/pizza-store',{
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }
