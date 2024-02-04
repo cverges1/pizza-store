@@ -2,7 +2,7 @@ const { Topping, Pizza } = require("../models");
 
 module.exports = {
   // Get all Toppings
-  async getThoughts(req, res) {
+  async getToppings(req, res) {
     try {
       const thoughts = await Topping.find();
 
