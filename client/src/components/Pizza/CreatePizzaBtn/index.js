@@ -1,28 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
-const CreateNewPizza = ({ updatePizzas }, {updateToppings}) => {
+const CreateNewPizza = ({ updatePizzas }) => {
   const [open, setOpen] = useState(false);
   const [name, setPizzaName] = useState('');
   const [selectedToppings, setSelectedToppings] = useState([]);
   const [toppings, setToppings] = useState([]);
-
-  useEffect(() => {
-    const fetchToppings = async () => {
-      try {
-        const response = await fetch('/api/toppings');
-        if (!response.ok) {
-          throw new Error('Failed to fetch toppings');
-        }
-        const data = await response.json();
-        setToppings(data);
-      } catch (error) {
-        console.error('Error fetching toppings:', error);
-      }
-    };
-
-    fetchToppings();
-  }, []);
 
   const handleOpen = async () => {
     try {
@@ -67,11 +50,8 @@ const CreateNewPizza = ({ updatePizzas }, {updateToppings}) => {
         throw new Error('Failed to create pizza');
       }
   
-      const data = await response.json();
-      console.log('Pizza created:', data);
       handleClose(); // Close the dialog after pizza is created
       updatePizzas(); // Call the updatePizzas function passed from the parent
-      window.location.reload(); // Reload the page to update the pizza list
     } catch (error) {
       console.error('Error creating pizza:', error);
     }

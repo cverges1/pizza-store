@@ -1,0 +1,112 @@
+import React, { useState, useEffect } from 'react';
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Checkbox, FormControlLabel } from '@mui/material';
+
+const PizzaUpdateButton = ({ pizza, onUpdate }) => {
+    const [open, setOpen] = useState(false);
+    const [updatedName, setUpdatedName] = useState(pizza.name);
+    const [selectedToppings, setSelectedToppings] = useState(pizza.toppings.map(topping => topping._id));
+    const [toppings, setToppings] = useState([]);
+
+    useEffect(() => {
+        // Fetch toppings when the component mounts and whenever selectedToppings change
+        const fetchToppings = async () => {
+            try {
+                const response = await fetch('/api/toppings');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch toppings');
+                }
+                const data = await response.json();
+                setToppings(data);
+            } catch (error) {
+                console.error('Error fetching toppings:', error);
+            }
+        };
+        fetchToppings();
+    }, [toppings]); // Fetch toppings whenever toppings change
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleUpdate = async () => {
+        try {
+            const response = await fetch(`/api/pizzas/${pizza._id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name: updatedName, toppings: selectedToppings }),
+            });
+            if (!response.ok) {
+                throw new Error("Failed to update pizza");
+            }
+            onUpdate();
+            handleClose();
+        } catch (error) {
+            console.error("Error updating pizza:", error);
+        }
+    };
+
+    const handleChangeName = (event) => {
+        setUpdatedName(event.target.value);
+    };
+
+    const handleChangeToppings = (event) => {
+        const toppingId = event.target.value;
+        setSelectedToppings((prevToppings) => {
+            if (prevToppings.includes(toppingId)) {
+                return prevToppings.filter((id) => id !== toppingId); // Deselect topping
+            } else {
+                return [...prevToppings, toppingId]; // Select topping
+            }
+        });
+    };
+
+    return (
+        <div>
+            <Button onClick={handleOpen} variant='contained' color='info'>
+                Update Pizza
+            </Button>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>Update {pizza.name}</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        label="New Pizza Name"
+                        fullWidth
+                        value={updatedName}
+                        onChange={handleChangeName}
+                    />
+                    <div>
+                        <h4>Select Toppings:</h4>
+                        {toppings.map((topping) => (
+                            <FormControlLabel
+                                key={topping._id}
+                                control={
+                                    <Checkbox
+                                        checked={selectedToppings.includes(topping._id)}
+                                        onChange={() => handleChangeToppings({ target: { value: topping._id } })}
+                                    />
+                                }
+                                label={topping.name}
+                            />
+                        ))}
+                    </div>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleUpdate} variant="contained" color="primary">
+                        Update
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+    );
+};
+
+export default PizzaUpdateButton;
