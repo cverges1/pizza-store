@@ -4,9 +4,9 @@ module.exports = {
   // Get all Toppings
   async getToppings(req, res) {
     try {
-      const thoughts = await Topping.find();
+      const toppings = await Topping.find();
 
-      res.status(200).json(thoughts);
+      res.status(200).json(toppings);
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -18,7 +18,7 @@ module.exports = {
     try {
       const topping = await Topping.findOne({
         _id: req.params.toppingId,
-      }).select("-__v");
+      });
 
       if (!topping) {
         return res.status(404).json({ message: "This topping does not exist" });

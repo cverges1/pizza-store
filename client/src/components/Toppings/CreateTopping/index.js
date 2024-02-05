@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material';
+import React, { useState } from "react";
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+} from "@mui/material";
 
 const CreateNewTopping = ({ updateToppings }) => {
   const [open, setOpen] = useState(false);
-  const [toppingName, setToppingName] = useState('');
+  const [name, setToppingName] = useState("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -11,33 +18,30 @@ const CreateNewTopping = ({ updateToppings }) => {
 
   const handleClose = () => {
     setOpen(false);
-    // Reset the form when dialog is closed
-    setToppingName('');
+    updateToppings();
   };
 
   const handleCreateTopping = async () => {
     try {
-      const response = await fetch('/api/toppings', {
-        method: 'POST',
+      const response = await fetch("/api/toppings", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ toppingName }),
+        body: JSON.stringify({ name }),
       });
-  
+
       if (!response.ok) {
-        throw new Error('Failed to create topping');
+        throw new Error("Failed to create topping");
       }
-  
+
       const data = await response.json();
-      console.log('Topping created:', data);
+      console.log("Topping created:", data);
       handleClose(); // Close the dialog after topping is created
-      updateToppings(); // Call the updateToppings function passed from the parent
     } catch (error) {
-      console.error('Error creating topping:', error);
+      console.error("Error creating topping:", error);
     }
   };
-  
 
   const handleChange = (event) => {
     setToppingName(event.target.value);
@@ -56,13 +60,17 @@ const CreateNewTopping = ({ updateToppings }) => {
             margin="dense"
             label="Topping Name"
             fullWidth
-            value={toppingName}
+            value={name}
             onChange={handleChange}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleCreateTopping} variant="contained" color="primary">
+          <Button
+            onClick={handleCreateTopping}
+            variant="contained"
+            color="primary"
+          >
             Create
           </Button>
         </DialogActions>

@@ -1,7 +1,6 @@
 import React from "react";
-import ToppingsList from "./components/ToppingsList";
-import PizzaList from "./components/PizzasList";
-
+import ToppingsList from "./components/Toppings/ToppingsList";
+import PizzaList from "./components/Pizza/PizzasList"
 function App() {
   return (
     <React.Fragment>

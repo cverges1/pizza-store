@@ -7,8 +7,8 @@ db.once("open", async () => {
 
   // define topping seed data
   const toppings = await Topping.insertMany([
-    { toppingName: "Pepperoni" },
-    { toppingName: "Mushrooms" },
+    { name: "Pepperoni" },
+    { name: "Mushrooms" },
   ]);
 
   // Console log that lets us know that the toppings have been seeded
@@ -18,11 +18,11 @@ db.once("open", async () => {
 
   const pizzas = await Pizza.insertMany([
     {
-      pizzaName: "Pepperoni Pizza",
+      name: "Pepperoni Pizza",
       toppings: [toppings[0]._id],
     },
     {
-      pizzaName: "Mushroom Pizza",
+      name: "Mushroom Pizza",
       toppings: [toppings[1]._id],
     },
   ]);

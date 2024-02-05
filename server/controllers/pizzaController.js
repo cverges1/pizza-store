@@ -4,7 +4,7 @@ module.exports = {
   // Get all Pizzas
   async getPizzas(req, res) {
     try {
-      const pizzas = await Pizza.find();
+      const pizzas = await Pizza.find().populate({ path: 'toppings'});
 
       res.status(200).json(pizzas);
     } catch (err) {
@@ -18,7 +18,7 @@ module.exports = {
     try {
       const pizza = await Pizza.findOne({
         _id: req.params.pizzaId,
-      }).select("-__v");
+      }).populate({ path: 'toppings'});
 
       if (!pizza) {
         return res.status(404).json({ message: "This pizza does not exist" });
