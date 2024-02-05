@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CreateNewTopping from '../CreateTopping';
+import ToppingDeleteButton from '../DeleteTopping';
 
 const ToppingsList = () => {
   const [toppings, setToppings] = useState([]);
@@ -21,20 +22,18 @@ const ToppingsList = () => {
     }
   };
 
-  const updateToppings = () => {
-    // Call fetchToppings again to update the list of toppings
-    fetchToppings();
-  };
-
   return (
     <div>
       <h2>Toppings</h2>
       <ul>
         {toppings.map(topping => (
-          <li key={topping._id}>{topping.toppingName}</li>
+          <li key={topping._id}>
+            <p>{topping.toppingName}</p>
+            <ToppingDeleteButton toppingId={topping._id} onDelete={fetchToppings} />
+          </li>
         ))}
       </ul>
-      <CreateNewTopping updateToppings={updateToppings} />
+      <CreateNewTopping updateToppings={fetchToppings} />
     </div>
   );
 };
