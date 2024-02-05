@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
-const CreateNewPizza = ({ updatePizzas }) => {
+const CreateNewPizza = ({ updatePizzas }, {updateToppings}) => {
   const [open, setOpen] = useState(false);
-  const [pizzaName, setPizzaName] = useState('');
+  const [name, setPizzaName] = useState('');
   const [selectedToppings, setSelectedToppings] = useState([]);
   const [toppings, setToppings] = useState([]);
 
@@ -50,7 +50,7 @@ const CreateNewPizza = ({ updatePizzas }) => {
     try {
       // Map the selected toppings to their IDs
       const selectedToppingIds = selectedToppings.map(toppingName => {
-        const matchingTopping = toppings.find(topping => topping.toppingName === toppingName);
+        const matchingTopping = toppings.find(topping => topping.name === toppingName);
         return matchingTopping._id;
       });
   
@@ -60,7 +60,7 @@ const CreateNewPizza = ({ updatePizzas }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ pizzaName, toppings: selectedToppingIds }),
+        body: JSON.stringify({ name, toppings: selectedToppingIds }),
       });
   
       if (!response.ok) {
@@ -98,7 +98,7 @@ const CreateNewPizza = ({ updatePizzas }) => {
             margin="dense"
             label="Pizza Name"
             fullWidth
-            value={pizzaName}
+            value={name}
             onChange={handleChangePizzaName}
           />
           <FormControl fullWidth>
@@ -110,8 +110,8 @@ const CreateNewPizza = ({ updatePizzas }) => {
               renderValue={(selected) => selected.join(', ')}
             >
               {toppings.map((topping) => (
-                <MenuItem key={topping._id} value={topping.toppingName}>
-                  {topping.toppingName}
+                <MenuItem key={topping._id} value={topping.name}>
+                  {topping.name}
                 </MenuItem>
               ))}
             </Select>

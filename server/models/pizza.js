@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const toppingSchema = require("./topping");
 
 const pizzaSchema = new Schema({
-  pizzaName: {
+  name: {
     type: String,
     required: true,
     unique: true

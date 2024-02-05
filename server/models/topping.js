@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const toppingSchema = new Schema(
   {
-    toppingName: {
+    name: {
       type: String,
       required: true,
       unique: true

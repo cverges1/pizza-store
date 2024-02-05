@@ -28,7 +28,7 @@ const ToppingsList = () => {
       <ul>
         {toppings.map(topping => (
           <li key={topping._id}>
-            <p>{topping.toppingName}</p>
+            <p>{topping.name}</p>
             <ToppingDeleteButton toppingId={topping._id} onDelete={fetchToppings} />
           </li>
         ))}
