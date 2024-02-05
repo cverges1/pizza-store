@@ -1,12 +1,18 @@
 const { Topping, Pizza } = require("../models");
 
 module.exports = {
-  // Get all Toppings
+  // Get all Toppings with pizzas they appear on
   async getToppings(req, res) {
     try {
       const toppings = await Topping.find();
+      const toppingsWithPizzas = await Promise.all(
+        toppings.map(async (topping) => {
+          const pizzas = await Pizza.find({ toppings: topping._id });
+          return { ...topping.toJSON(), pizzas: pizzas.map(pizza => pizza.name) };
+        })
+      );
 
-      res.status(200).json(toppings);
+      res.status(200).json(toppingsWithPizzas);
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);

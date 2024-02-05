@@ -1,13 +1,20 @@
 import React from "react";
-import ToppingsList from "./components/Toppings/ToppingsList";
-import PizzaList from "./components/Pizza/PizzasList"
+import ToppingsMain from "./components/Toppings/ToppingsMain";
+import PizzaMain from "./components/Pizza/PizzaMain";
+import { Typography } from "@mui/material";
+
 function App() {
   return (
-    <React.Fragment>
-    <header><h1>Pizza Store</h1></header>
-    <ToppingsList />
-    <PizzaList />
-    </React.Fragment>
+    <div>
+      <header>
+        <Typography sx={{ textAlign: "center", padding: "20px" }}>
+          <h1>Pizza Store</h1>
+        </Typography>
+      </header>
+
+      <ToppingsMain />
+      <PizzaMain />
+    </div>
   );
 }
 

@@ -35,8 +35,6 @@ const CreateNewTopping = ({ updateToppings }) => {
         throw new Error("Failed to create topping");
       }
 
-      const data = await response.json();
-      console.log("Topping created:", data);
       handleClose(); // Close the dialog after topping is created
     } catch (error) {
       console.error("Error creating topping:", error);
