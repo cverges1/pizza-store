@@ -1,17 +1,29 @@
 import React, { useState } from "react";
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Box } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Box,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add"
 
 const CreateNewTopping = ({ updateToppings }) => {
   const [open, setOpen] = useState(false);
   const [name, setToppingName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
 
   const handleOpen = () => {
     setOpen(true);
+    setToppingName("");
   };
 
   const handleClose = () => {
     setOpen(false);
+    setErrorMessage("");
     updateToppings();
   };
 
@@ -26,7 +38,9 @@ const CreateNewTopping = ({ updateToppings }) => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to create topping");
+        const errorData = await response.json();
+        setErrorMessage(errorData.message); // Set error message received from backend
+        return;
       }
 
       handleClose(); // Close the dialog after topping is created
@@ -47,6 +61,9 @@ const CreateNewTopping = ({ updateToppings }) => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>New Topping</DialogTitle>
         <DialogContent>
+          {errorMessage && (
+            <Box sx={{ color: "red" }}>{errorMessage}</Box>
+          )}
           <TextField
             autoFocus
             margin="dense"

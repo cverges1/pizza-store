@@ -37,15 +37,21 @@ module.exports = {
     }
   },
 
-  // Create a new Topping
-  async createTopping(req, res) {
-    try {
-      const topping = await Topping.create(req.body);
-      res.status(200).json(topping);
-    } catch (err) {
-      res.status(500).json(err);
+// Create a new Topping
+async createTopping(req, res) {
+  try {
+    const topping = await Topping.create(req.body);
+    res.status(201).json(topping); // Return 201 Created status code
+  } catch (err) {
+    if (err.code === 11000 && err.keyPattern && err.keyPattern.name) {
+      // Unique constraint violation (duplicate key error)
+      res.status(400).json({ message: "Topping name must be unique" });
+    } else {
+      // Other errors
+      res.status(500).json({ message: "Internal Server Error" });
     }
-  },
+  }
+},
 
   // Delete a Topping
   async deleteTopping(req, res) {

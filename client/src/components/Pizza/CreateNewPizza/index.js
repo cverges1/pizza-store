@@ -18,6 +18,7 @@ const CreateNewPizza = ({ updatePizzas, toppings, fetchTopping }) => {
   const [open, setOpen] = useState(false);
   const [name, setPizzaName] = useState("");
   const [selectedToppings, setSelectedToppings] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -25,6 +26,7 @@ const CreateNewPizza = ({ updatePizzas, toppings, fetchTopping }) => {
 
   const handleClose = () => {
     setOpen(false);
+    setErrorMessage("");
     // Reset the form when dialog is closed
     setPizzaName("");
     setSelectedToppings([]);
@@ -50,7 +52,9 @@ const CreateNewPizza = ({ updatePizzas, toppings, fetchTopping }) => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to create pizza");
+        const errorData = await response.json();
+        setErrorMessage(errorData.message); // Set error message received from backend
+        return;
       }
 
       handleClose(); // Close the dialog after pizza is created
@@ -82,6 +86,9 @@ const CreateNewPizza = ({ updatePizzas, toppings, fetchTopping }) => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create New Pizza</DialogTitle>
         <DialogContent>
+        {errorMessage && (
+            <Box sx={{ color: "red" }}>{errorMessage}</Box>
+          )}
           <TextField
             autoFocus
             margin="dense"
