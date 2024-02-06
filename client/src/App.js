@@ -41,7 +41,7 @@ function App() {
   return (
     <div style={{ backgroundColor: '#64B5F6', paddingBottom: 30}}>
       <header>
-        <Typography variant='div' sx={{ textAlign: "center", padding: "20px" }}>
+        <Typography variant='h4' sx={{ textAlign: "center", padding: "20px" }}>
           <h1>Pizza Store</h1>
         </Typography>
       </header>
