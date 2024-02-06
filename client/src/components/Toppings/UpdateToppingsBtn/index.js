@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material';
 
-const ToppingUpdateButton = ({ topping, onUpdate }) => {
+const ToppingUpdateButton = ({ topping, fetchPizza, onUpdate }) => {
     const [open, setOpen] = useState(false);
     const [updatedName, setUpdatedName] = useState(topping.name);
 
@@ -25,7 +25,8 @@ const ToppingUpdateButton = ({ topping, onUpdate }) => {
             if (!response.ok) {
                 throw new Error("Failed to update topping");
             }
-            onUpdate(); // Call the onUpdate function passed from the parent component to refresh the toppings list
+            onUpdate(); // Update Topping List
+            fetchPizza(); // Update Pizza List
             handleClose(); // Close the dialog after updating topping
         } catch (error) {
             console.error("Error updating topping:", error);

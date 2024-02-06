@@ -1,61 +1,64 @@
-import React, { useState} from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import React, { useState } from "react";
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Box,
+} from "@mui/material";
 
-const CreateNewPizza = ({ updatePizzas }) => {
+const CreateNewPizza = ({ updatePizzas, toppings, fetchTopping }) => {
   const [open, setOpen] = useState(false);
-  const [name, setPizzaName] = useState('');
+  const [name, setPizzaName] = useState("");
   const [selectedToppings, setSelectedToppings] = useState([]);
-  const [toppings, setToppings] = useState([]);
 
-  const handleOpen = async () => {
-    try {
-      const response = await fetch('/api/toppings');
-      if (!response.ok) {
-        throw new Error('Failed to fetch toppings');
-      }
-      const data = await response.json();
-      setToppings(data);
-      setOpen(true);
-    } catch (error) {
-      console.error('Error fetching toppings:', error);
-    }
+  const handleOpen = () => {
+    setOpen(true);
   };
-  
 
   const handleClose = () => {
     setOpen(false);
     // Reset the form when dialog is closed
-    setPizzaName('');
+    setPizzaName("");
     setSelectedToppings([]);
   };
 
   const handleCreatePizza = async () => {
     try {
       // Map the selected toppings to their IDs
-      const selectedToppingIds = selectedToppings.map(toppingName => {
-        const matchingTopping = toppings.find(topping => topping.name === toppingName);
+      const selectedToppingIds = selectedToppings.map((toppingName) => {
+        const matchingTopping = toppings.find(
+          (topping) => topping.name === toppingName
+        );
         return matchingTopping._id;
       });
-  
+
       // Send the pizza data with topping IDs to the backend API
-      const response = await fetch('/api/pizzas', {
-        method: 'POST',
+      const response = await fetch("/api/pizzas", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ name, toppings: selectedToppingIds }),
       });
-  
+
       if (!response.ok) {
-        throw new Error('Failed to create pizza');
+        throw new Error("Failed to create pizza");
       }
-  
+
       handleClose(); // Close the dialog after pizza is created
-      updatePizzas(); // Call the updatePizzas function passed from the parent
+      updatePizzas(); // Update the Pizza List
+      fetchTopping(); //Update the Toppings
     } catch (error) {
-      console.error('Error creating pizza:', error);
+      console.error("Error creating pizza:", error);
     }
-  };  
+  };
 
   const handleChangePizzaName = (event) => {
     setPizzaName(event.target.value);
@@ -66,8 +69,8 @@ const CreateNewPizza = ({ updatePizzas }) => {
   };
 
   return (
-    <div>
-      <Button variant="contained" onClick={handleOpen}>
+    <Box>
+      <Button variant="contained" onClick={handleOpen} fullWidth>
         Create New Pizza
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -87,7 +90,7 @@ const CreateNewPizza = ({ updatePizzas }) => {
               multiple
               value={selectedToppings}
               onChange={handleChangeToppings}
-              renderValue={(selected) => selected.join(', ')}
+              renderValue={(selected) => selected.join(", ")}
             >
               {toppings.map((topping) => (
                 <MenuItem key={topping._id} value={topping.name}>
@@ -99,12 +102,16 @@ const CreateNewPizza = ({ updatePizzas }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleCreatePizza} variant="contained" color="primary">
+          <Button
+            onClick={handleCreatePizza}
+            variant="contained"
+            color="primary"
+          >
             Create
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Box>
   );
 };
 

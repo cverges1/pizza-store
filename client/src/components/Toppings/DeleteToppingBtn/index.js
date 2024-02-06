@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-const ToppingDeleteButton = ({ toppingId, onDelete }) => {
+const ToppingDeleteButton = ({ toppingId, fetchPizza, onDelete }) => {
   const handleDeleteTopping = async () => {
     try {
       const response = await fetch(`/api/toppings/${toppingId}`, {
@@ -13,7 +13,8 @@ const ToppingDeleteButton = ({ toppingId, onDelete }) => {
       if (!response.ok) {
         throw new Error("Failed to delete topping");
       }
-      onDelete(); // Call the onDelete function passed from the parent component to update the toppings list
+      fetchPizza() //Update Pizza List
+      onDelete(); // Update Topping List
     } catch (error) {
       console.error("Error deleting topping:", error);
     }

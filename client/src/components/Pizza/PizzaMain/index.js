@@ -1,16 +1,25 @@
 import React from "react";
-import { Container, Typography, Box } from '@mui/material';
+import { Container, Card, CardHeader } from "@mui/material";
 import PizzaList from "../GetPizzas";
+import CreateNewPizza from "../CreatePizzaBtn";
 
-const PizzaMain = () => {
+const PizzaMain = ({ pizzas, toppings, fetchPizza, fetchTopping }) => {
   return (
     <Container>
-      <Box mt={3} mb={3}>
-        <Typography variant="h4" gutterBottom>
-          Pizzas
-        </Typography>
-      </Box>
-      <PizzaList />
+      <Card>
+        <CardHeader title="Pizzas" />
+        <PizzaList
+          pizzas={pizzas}
+          toppings={toppings}
+          fetchPizza={fetchPizza}
+          fetchTopping={fetchTopping}
+        />
+        <CreateNewPizza
+          updatePizzas={fetchPizza}
+          toppings={toppings}
+          fetchTopping={fetchTopping}
+        />
+      </Card>
     </Container>
   );
 };

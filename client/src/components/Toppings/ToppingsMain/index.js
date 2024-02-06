@@ -1,16 +1,16 @@
 import React from "react";
-import { Container, Typography, Box } from '@mui/material';
+import { Container, Card, CardHeader } from "@mui/material";
 import ToppingsList from "../GetToppings";
+import CreateNewTopping from "../CreateToppingBtn";
 
-const ToppingsMain = () => {
+const ToppingsMain = ({ toppings, fetchPizza, fetchTopping }) => {
   return (
     <Container>
-      <Box mt={3} mb={3}>
-        <Typography variant="h4" gutterBottom>
-          Toppings
-        </Typography>
-      </Box>
-      <ToppingsList />
+      <Card>
+        <CardHeader title="Toppings" />
+        <ToppingsList toppings={toppings} fetchPizza={fetchPizza} fetchTopping={fetchTopping} />
+        <CreateNewTopping updateToppings={fetchTopping} />
+      </Card>
     </Container>
   );
 };
