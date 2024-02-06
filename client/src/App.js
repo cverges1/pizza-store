@@ -49,6 +49,7 @@ function App() {
       <ToppingsMain toppings={toppings} fetchPizza={fetchPizza} fetchTopping={fetchTopping}/>
       <PizzaMain pizzas={pizzas} toppings={toppings} fetchPizza={fetchPizza} fetchTopping={fetchTopping}/>
     </div>
+    
   );
 }
 
