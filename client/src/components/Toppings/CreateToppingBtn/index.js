@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-} from "@mui/material";
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Box } from "@mui/material";
 
 const CreateNewTopping = ({ updateToppings }) => {
   const [open, setOpen] = useState(false);
@@ -46,8 +39,8 @@ const CreateNewTopping = ({ updateToppings }) => {
   };
 
   return (
-    <div>
-      <Button variant="contained" onClick={handleOpen}>
+    <Box> 
+      <Button variant="contained" onClick={handleOpen} fullWidth>
         Create New Topping
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -73,7 +66,7 @@ const CreateNewTopping = ({ updateToppings }) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Box>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-const PizzaDeleteButton = ({ pizzaId, onDelete }) => {
+const PizzaDeleteButton = ({ pizzaId, onDelete, fetchTopping }) => {
   const handleDeletePizza = async () => {
     try {
       const response = await fetch(`/api/pizzas/${pizzaId}`, {
@@ -13,7 +13,8 @@ const PizzaDeleteButton = ({ pizzaId, onDelete }) => {
       if (!response.ok) {
         throw new Error("Failed to delete pizza");
       }
-      onDelete(); // Call the onDelete function passed from the parent component to update the toppings list
+      onDelete(); // Update the Pizza List
+      fetchTopping(); //Update the Topping List
     } catch (error) {
       console.error("Error deleting pizza:", error);
     }

@@ -1,28 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Checkbox, FormControlLabel } from '@mui/material';
 
-const PizzaUpdateButton = ({ pizza, onUpdate }) => {
+const PizzaUpdateButton = ({ pizza, onUpdate, fetchTopping, toppings }) => {
     const [open, setOpen] = useState(false);
     const [updatedName, setUpdatedName] = useState(pizza.name);
     const [selectedToppings, setSelectedToppings] = useState(pizza.toppings.map(topping => topping._id));
-    const [toppings, setToppings] = useState([]);
-
-    useEffect(() => {
-        // Fetch toppings when the component mounts and whenever selectedToppings change
-        const fetchToppings = async () => {
-            try {
-                const response = await fetch('/api/toppings');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch toppings');
-                }
-                const data = await response.json();
-                setToppings(data);
-            } catch (error) {
-                console.error('Error fetching toppings:', error);
-            }
-        };
-        fetchToppings();
-    }, [toppings]); // Fetch toppings whenever toppings change
 
     const handleOpen = () => {
         setOpen(true);
@@ -32,6 +14,7 @@ const PizzaUpdateButton = ({ pizza, onUpdate }) => {
         setOpen(false);
     };
 
+    // Handle update pizza logic
     const handleUpdate = async () => {
         try {
             const response = await fetch(`/api/pizzas/${pizza._id}`, {
@@ -44,17 +27,20 @@ const PizzaUpdateButton = ({ pizza, onUpdate }) => {
             if (!response.ok) {
                 throw new Error("Failed to update pizza");
             }
-            onUpdate();
+            onUpdate(); // Update Pizza List
+            fetchTopping(); //Update Topping List
             handleClose();
         } catch (error) {
             console.error("Error updating pizza:", error);
         }
     };
 
+    // Handle change in pizza name
     const handleChangeName = (event) => {
         setUpdatedName(event.target.value);
     };
 
+    // Handle change in selected toppings
     const handleChangeToppings = (event) => {
         const toppingId = event.target.value;
         setSelectedToppings((prevToppings) => {
