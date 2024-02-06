@@ -1,7 +1,7 @@
 {
   "name": "pizza-store",
   "version": "1.0.0",
-  "description": "full stack application for personal art store",
+  "description": "full stack application for pizza store owner",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
