@@ -25,7 +25,6 @@ app.get('*', (req, res) => {
   });
 });
 
-
 connection.once("open", () => {
   app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
