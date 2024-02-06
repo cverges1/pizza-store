@@ -12,7 +12,7 @@ const ToppingsMain = ({ toppings, fetchPizza, fetchTopping }) => {
         alignItems="center"
         pb={2}
       >
-        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
           Toppings
         </Typography>
         <CreateNewTopping updateToppings={fetchTopping} />

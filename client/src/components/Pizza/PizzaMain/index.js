@@ -13,7 +13,7 @@ const PizzaMain = ({ pizzas, toppings, fetchPizza, fetchTopping }) => {
           alignItems="center"
           pb={2}
         >
-          <Typography variant="h5" fontWeight="bold" mt={3}>
+          <Typography variant="h4" fontWeight="bold" mt={3}>
             Pizzas
           </Typography>
           <CreateNewPizza
