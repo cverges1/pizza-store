@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Box } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add"
 
 const CreateNewTopping = ({ updateToppings }) => {
   const [open, setOpen] = useState(false);
@@ -40,11 +41,11 @@ const CreateNewTopping = ({ updateToppings }) => {
 
   return (
     <Box> 
-      <Button variant="contained" onClick={handleOpen} fullWidth>
-        Create New Topping
+      <Button variant="contained" onClick={handleOpen} color="success" startIcon={<AddIcon />}>
+        New Topping
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Create New Topping</DialogTitle>
+        <DialogTitle>New Topping</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -60,8 +61,7 @@ const CreateNewTopping = ({ updateToppings }) => {
           <Button
             onClick={handleCreateTopping}
             variant="contained"
-            color="primary"
-          >
+            color="success"          >
             Create
           </Button>
         </DialogActions>

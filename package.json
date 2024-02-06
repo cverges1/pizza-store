@@ -1,5 +1,5 @@
 {
-  "name": "art-store",
+  "name": "pizza-store",
   "version": "1.0.0",
   "description": "full stack application for personal art store",
   "main": "server/server.js",

@@ -21,8 +21,8 @@ const PizzaDeleteButton = ({ pizzaId, onDelete, fetchTopping }) => {
   };
 
   return (
-    <Button onClick={handleDeletePizza} variant="contained" color="error">
-      Delete Pizza
+    <Button onClick={handleDeletePizza} variant="contained" color="error" size="small">
+      Delete
     </Button>
   );
 };
