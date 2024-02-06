@@ -54,8 +54,8 @@ const PizzaUpdateButton = ({ pizza, onUpdate, fetchTopping, toppings }) => {
 
     return (
         <div>
-            <Button onClick={handleOpen} variant='contained' color='info'>
-                Update Pizza
+            <Button onClick={handleOpen} variant='contained' color='primary' size='small'>
+                Update
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Update {pizza.name}</DialogTitle>

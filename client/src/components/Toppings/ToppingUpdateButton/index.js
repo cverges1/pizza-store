@@ -39,8 +39,8 @@ const ToppingUpdateButton = ({ topping, fetchPizza, onUpdate }) => {
 
     return (
         <div>
-            <Button onClick={handleOpen} variant='contained' color='info'>
-                Update Topping
+            <Button size="small" onClick={handleOpen} variant='contained' >
+            Update
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Update {topping.name}</DialogTitle>

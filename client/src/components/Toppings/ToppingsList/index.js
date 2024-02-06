@@ -3,11 +3,13 @@ import {
   Typography,
   Card,
   CardContent,
+  CardHeader,
   CardActions,
   Grid,
+  List, ListItem
 } from "@mui/material";
-import ToppingDeleteButton from "../DeleteToppingBtn";
-import ToppingUpdateButton from "../UpdateToppingsBtn";
+import ToppingDeleteButton from "../ToppingDeleteButton";
+import ToppingUpdateButton from "../ToppingUpdateButton";
 
 const ToppingsList = ({ toppings, fetchPizza, fetchTopping }) => {
   return (
@@ -16,16 +18,20 @@ const ToppingsList = ({ toppings, fetchPizza, fetchTopping }) => {
           {toppings.map((topping) => (
             <Grid item xs={12} sm={6} md={4} key={topping._id}>
               <Card>
+                <CardHeader title={topping.name} />
                 <CardContent>
-                  <Typography variant="h6">{topping.name}</Typography>
-                  <Typography variant="p">
-                    Pizza's that have {topping.name}:
+                  <Typography variant="body2">
+                    Appears on:
                   </Typography>
-                  {topping.pizzas.map((pizza, index) => (
-                    <Typography key={index} variant="div">
-                      <li>{pizza}</li>
-                    </Typography>
-                  ))}
+                  <List>
+                    {topping.pizzas.map((pizza, index) => (
+                      <ListItem key={index}>
+                        <Typography variant="body2">
+                          {pizza}
+                        </Typography>
+                      </ListItem>
+                    ))}
+                  </List>
                 </CardContent>
                 <CardActions>
                   <ToppingUpdateButton

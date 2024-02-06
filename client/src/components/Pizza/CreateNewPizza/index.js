@@ -12,6 +12,7 @@ import {
   MenuItem,
   Box,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 const CreateNewPizza = ({ updatePizzas, toppings, fetchTopping }) => {
   const [open, setOpen] = useState(false);
@@ -70,8 +71,13 @@ const CreateNewPizza = ({ updatePizzas, toppings, fetchTopping }) => {
 
   return (
     <Box>
-      <Button variant="contained" onClick={handleOpen} fullWidth>
-        Create New Pizza
+      <Button
+        variant="contained"
+        onClick={handleOpen}
+        color="success"
+        startIcon={<AddIcon />}
+      >
+        New Pizza
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create New Pizza</DialogTitle>
@@ -105,7 +111,7 @@ const CreateNewPizza = ({ updatePizzas, toppings, fetchTopping }) => {
           <Button
             onClick={handleCreatePizza}
             variant="contained"
-            color="primary"
+            color="success"
           >
             Create
           </Button>
