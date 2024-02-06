@@ -4,7 +4,7 @@ module.exports = {
   // Get all Pizzas
   async getPizzas(req, res) {
     try {
-      const pizzas = await Pizza.find().populate({ path: 'toppings'});
+      const pizzas = await Pizza.find().populate({ path: "toppings" });
 
       res.status(200).json(pizzas);
     } catch (err) {
@@ -18,7 +18,7 @@ module.exports = {
     try {
       const pizza = await Pizza.findOne({
         _id: req.params.pizzaId,
-      }).populate({ path: 'toppings'});
+      }).populate({ path: "toppings" });
 
       if (!pizza) {
         return res.status(404).json({ message: "This pizza does not exist" });
@@ -35,9 +35,15 @@ module.exports = {
   async createPizza(req, res) {
     try {
       const pizza = await Pizza.create(req.body);
-      res.status(200).json(pizza);
+      res.status(201).json(pizza); // Return 201 Created status code
     } catch (err) {
-      res.status(500).json(err);
+      if (err.code === 11000 && err.keyPattern && err.keyPattern.name) {
+        // Unique constraint violation (duplicate key error)
+        res.status(400).json({ message: "Pizza name must be unique" });
+      } else {
+        // Other errors
+        res.status(500).json({ message: "Internal Server Error" });
+      }
     }
   },
 
