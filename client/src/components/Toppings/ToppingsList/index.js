@@ -14,6 +14,11 @@ import ToppingUpdateButton from "../ToppingUpdateButton";
 const ToppingsList = ({ toppings, fetchPizza, fetchTopping }) => {
   return (
     <div>
+            {toppings.length === 0 ? (
+        <Card>
+        <CardHeader title="No toppings yet!" sx={{textAlign:"center"}}/>
+        </Card>
+      ) : (
         <Grid container spacing={2}>
           {toppings.map((topping) => (
             <Grid item xs={12} sm={6} md={4} key={topping._id}>
@@ -49,6 +54,7 @@ const ToppingsList = ({ toppings, fetchPizza, fetchTopping }) => {
             </Grid>
           ))}
         </Grid>
+      )}
     </div>
   );
 };
