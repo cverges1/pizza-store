@@ -58,8 +58,11 @@ After installation you are ready to use the application.
 1. Navigate to the application root directory in the terminal
 2. Run `npm run develop` to start the development server
 
+### Usage Testing
 
-For testing API endpoints use tools like [Postman](https://www.postman.com/), [Insomnia](https://insomnia.rest/) or any API testing tool of your choice.
+- To test React Components navigate to the client folder `cd client` and run `npm test`.
+
+- For testing API endpoints use tools like [Postman](https://www.postman.com/), [Insomnia](https://insomnia.rest/) or any API testing tool of your choice.
 
 
 
