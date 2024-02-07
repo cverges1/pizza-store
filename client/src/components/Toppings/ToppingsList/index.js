@@ -6,7 +6,8 @@ import {
   CardHeader,
   CardActions,
   Grid,
-  List, ListItem
+  List,
+  ListItem,
 } from "@mui/material";
 import ToppingDeleteButton from "../ToppingDeleteButton";
 import ToppingUpdateButton from "../ToppingUpdateButton";
@@ -14,9 +15,9 @@ import ToppingUpdateButton from "../ToppingUpdateButton";
 const ToppingsList = ({ toppings, fetchPizza, fetchTopping }) => {
   return (
     <div>
-            {toppings.length === 0 ? (
+      {toppings.length === 0 ? (
         <Card>
-        <CardHeader title="No toppings yet!" sx={{textAlign:"center"}}/>
+          <CardHeader title="No toppings yet!" sx={{ textAlign: "center" }} />
         </Card>
       ) : (
         <Grid container spacing={2}>
@@ -25,18 +26,22 @@ const ToppingsList = ({ toppings, fetchPizza, fetchTopping }) => {
               <Card>
                 <CardHeader title={topping.name} />
                 <CardContent>
-                  <Typography variant="body2">
-                    Appears on:
-                  </Typography>
-                  <List>
-                    {topping.pizzas.map((pizza, index) => (
-                      <ListItem key={index}>
-                        <Typography variant="body2">
-                          {pizza}
-                        </Typography>
-                      </ListItem>
-                    ))}
-                  </List>
+                  {topping.pizzas.length === 0 ? (
+                    <Typography variant="body2">
+                      Not on any pizzas yet
+                    </Typography>
+                  ) : (
+                    <div>
+                      <Typography variant="body2">Appears on:</Typography>
+                      <List>
+                        {topping.pizzas.map((pizza, index) => (
+                          <ListItem key={index}>
+                            <Typography variant="body2">{pizza}</Typography>
+                          </ListItem>
+                        ))}
+                      </List>
+                    </div>
+                  )}
                 </CardContent>
                 <CardActions>
                   <ToppingUpdateButton
