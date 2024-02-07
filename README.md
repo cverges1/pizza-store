@@ -4,7 +4,7 @@
 
 ## Description
 
-The Pizza Store is a MERN (MongoDB, Express.js, React.js, and Node.js) progrissive web application tailored for pizza store owners to efficiently manage their pizza offerings and toppings. Through a RESTful API, owners can seamlessly perform CRUD (Create, Read, Update, Delete) operations on both toppings and pizzas.
+The Pizza Store is a MERN (MongoDB, Express.js, React.js, and Node.js) progressive web application tailored for pizza store owners to efficiently manage their pizza offerings and toppings. Through a RESTful API, owners can seamlessly perform CRUD (Create, Read, Update, Delete) operations on both toppings and pizzas.
 
 ### Features:
 - Pizza Management: Easily add, edit, and remove pizzas from the menu.
