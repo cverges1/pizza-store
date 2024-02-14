@@ -25,7 +25,7 @@ const PizzaUpdateButton = ({ pizza, onUpdate, fetchTopping, toppings }) => {
 
   const handleClose = () => {
     setOpen(false);
-    setUpdatedName("");
+    setUpdatedName(updatedName);
     setErrorMessage("");
   };
 
